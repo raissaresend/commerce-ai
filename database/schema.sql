@@ -13,6 +13,7 @@ CREATE TABLE produtos (
     descricao TEXT,
     preco NUMERIC(10, 2) NOT NULL,
     quantidade_estoque INTEGER NOT NULL DEFAULT 0,
+    categoria VARCHAR(100), -- <<< LINHA ADICIONADA AQUI
     sku VARCHAR(100) UNIQUE,
     criado_em TIMESTAMP WITH TIME ZONE DEFAULT now()
 );

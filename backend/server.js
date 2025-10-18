@@ -1,18 +1,24 @@
-const express = require("express");
-const db = require("./db"); // 👈 1. Importe a configuração do banco
+// backend/server.js
 
+const express = require("express");
+const db = require("./db");
+const productRoutes = require("./routes/products");
 const app = express();
 const port = 3001;
 
 app.use(express.json());
 
+// Rota de teste inicial (pode manter ou remover depois)
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend está funcionando!" });
 });
 
-// Inicia o servidor e testa a conexão com o banco
+// 👇 2. MONTE AS ROTAS DE PRODUTOS
+// Dizendo ao Express: "Qualquer requisição que começar com /api/produtos,
+// use as rotas definidas em productRoutes"
+app.use("/api/produtos", productRoutes);
+
 app.listen(port, async () => {
-  // 👈 2. Adicione 'async' aqui
   console.log(`Backend rodando em http://localhost:${port}`);
-  await db.testConnection(); // 👈 3. Chame a função de teste da conexão
+  await db.testConnection();
 });
