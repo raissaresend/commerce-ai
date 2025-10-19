@@ -83,6 +83,9 @@ const summaryData = [
 ];
 
 export default function SchedulePage() {
+  // 👇 COLE AQUI O SEU LINK DO CALENDLY 👇
+  const calendlyLink =
+    "https://calendly.com/raissa-resende-estudante/banho-e-tosa";
   return (
     <div>
       {/* Cabeçalho da Página */}
@@ -93,14 +96,19 @@ export default function SchedulePage() {
           </h2>
           <p className="text-gray-500">Gerencie seus agendamentos</p>
         </div>
-        <button className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-green-700">
+        <a
+          href={calendlyLink}
+          target="_blank" // Abre em uma nova aba
+          rel="noopener noreferrer" // Boa prática de segurança para links externos
+          className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-green-700"
+        >
           + Novo Agendamento
-        </button>
+        </a>
       </div>
 
       {/* Conteúdo principal - layout de 2 colunas */}
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* 👇 COLUNA ESQUERDA ATUALIZADA 👇 */}
+        {/* COLUNA ESQUERDA */}
         <div className="flex-grow-[3] bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h3 className="font-semibold text-lg mb-4">Calendário Semanal</h3>
           <div className="grid grid-cols-7 gap-2">
