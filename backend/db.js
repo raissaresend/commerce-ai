@@ -1,39 +1,35 @@
-// backend/db.js
+// backend/db.js - Atualizado para usar variáveis de ambiente
 
-const { Pool } = require("pg");
+require('dotenv').config(); // Carrega as variáveis do .env
+const { Pool } = require('pg');
 
-// Configuração da conexão com o banco de dados PostgreSQL
+// Configuração da conexão usando variáveis de ambiente
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "commerce_ai_db",
-  password: "1234",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT || 5432, // Usa a porta do .env ou 5432 como padrão
 });
 
 // Função assíncrona para testar a conexão
 async function testConnection() {
-  let client; // Declara a variável client fora do try para poder usá-la no finally
+  let client;
   try {
-    client = await pool.connect(); // Tenta conectar
-    console.log("✅ Conexão com o PostgreSQL estabelecida com sucesso!");
+    client = await pool.connect();
+    console.log(`✅ Conexão com PostgreSQL (${process.env.DB_USER}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}) estabelecida com sucesso!`);
   } catch (err) {
-    // Se der erro na conexão, mostra a mensagem de erro
-    console.error(
-      "❌ Erro ao conectar com o PostgreSQL:",
-      err.message || err.stack
-    );
+    console.error('❌ Erro ao conectar com o PostgreSQL:', err.message || err.stack);
   } finally {
-    // Independentemente de ter dado certo ou erro, se a conexão foi aberta, ela é liberada
     if (client) {
       client.release();
-      console.log("ℹ️ Conexão liberada de volta para o pool.");
+      // console.log('ℹ️ Conexão liberada de volta para o pool.'); // Log opcional
     }
   }
 }
 
-// Exporta um objeto com a função query (para executar SQL) e a função de teste
+// Exporta a função query e a função de teste
 module.exports = {
   query: (text, params) => pool.query(text, params),
-  testConnection, // Exporta a função de teste para ser chamada no server.js
+  testConnection,
 };
