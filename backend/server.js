@@ -4,6 +4,7 @@ const express = require("express");
 const db = require("./db");
 const productRoutes = require("./routes/products");
 const webhookRoutes = require("./routes/webhooks");
+const chatRoutes = require("./routes/chat");
 
 const app = express();
 const port = 3001;
@@ -25,6 +26,9 @@ app.use("/api/produtos", productRoutes);
 
 // ROTAS DE WEBHOOK
 app.use("/api/webhooks", webhookRoutes);
+
+// Rotas de Chat
+app.use("/api/chat", chatRoutes);
 
 // Inicia o servidor
 app.listen(port, async () => {
