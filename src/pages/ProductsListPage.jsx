@@ -1,64 +1,55 @@
 // src/pages/ProductsListPage.jsx
 
-import { Link } from "react-router-dom";
-import StatCard from "../components/StatCard";
-import Badge from "../components/Badge";
-
-// 👇 DADOS ATUALIZADOS PARA O TEMA PET SHOP 👇
-const productsData = [
-  {
-    name: "Ração Premier - Cães Adultos 15kg",
-    category: "Alimentação",
-    price: 249.9,
-    stock: 12,
-    status: "Ativo",
-  },
-  {
-    name: "Brinquedo de Corda para Cães",
-    category: "Brinquedos",
-    price: 35.5,
-    stock: 45,
-    status: "Ativo",
-  },
-  {
-    name: "Coleira Anti-pulgas Seresto",
-    category: "Acessórios",
-    price: 150.0,
-    stock: 8,
-    status: "Ativo",
-  },
-  {
-    name: "Sachê Whiskas Gatos Castrados",
-    category: "Alimentação",
-    price: 4.9,
-    stock: 120,
-    status: "Ativo",
-  },
-  {
-    name: "Arranhador de Gato com Torre",
-    category: "Brinquedos",
-    price: 180.0,
-    stock: 0,
-    status: "Ativo",
-  },
-  {
-    name: "Tapete Higiênico Super Secão",
-    category: "Higiene",
-    price: 59.9,
-    stock: 25,
-    status: "Ativo",
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import StatCard from '../components/StatCard';
+import Badge from '../components/Badge';
 
 export default function ProductsListPage() {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch('/api/produtos');
+        if (!response.ok) {
+          throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Erro ao buscar produtos:", err);
+        setError('Falha ao carregar produtos. Tente novamente.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const totalProdutos = products.length;
+  // Ajuste aqui se o status vier do DB ou for derivado
+  const produtosAtivos = products.length; // Exemplo simplificado
+  const estoqueBaixo = products.filter(p => p.quantidade_estoque > 0 && p.quantidade_estoque < 10).length;
+
+  if (isLoading) {
+    return <div className="text-center p-8">Carregando produtos...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center p-8 text-red-600">{error}</div>;
+  }
+
   return (
     <div>
       {/* Cabeçalho da Página */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">
-            Lista de Produtos
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800">Lista de Produtos</h2>
           <p className="text-gray-500">Gerencie seu catálogo de produtos</p>
         </div>
         <Link to="/produtos/novo">
@@ -69,80 +60,52 @@ export default function ProductsListPage() {
       </div>
 
       {/* Tabela de Produtos */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto">
         <div className="p-4 flex justify-between items-center">
-          <p className="font-semibold">
-            Produtos Cadastrados{" "}
-            <span className="text-gray-500 font-normal">
-              ({productsData.length})
-            </span>
-          </p>
+          <p className="font-semibold">Produtos Cadastrados <span className="text-gray-500 font-normal">({totalProdutos})</span></p>
           <input
             type="search"
             placeholder="Buscar produtos..."
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            className="px-3 py-2 border border-gray-300 rounded-lg text-sm w-full max-w-xs"
           />
         </div>
-        <table className="w-full table-auto">
-          <thead className="border-b bg-gray-50 text-left text-sm text-gray-600">
-            <tr>
-              <th className="p-4 font-medium">Nome do Produto</th>
-              <th className="p-4 font-medium">Categoria</th>
-              <th className="p-4 font-medium">Preço</th>
-              <th className="p-4 font-medium">Estoque</th>
-              <th className="p-4 font-medium">Status</th>
-              <th className="p-4 font-medium">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productsData.map((product, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50">
-                <td className="p-4 font-medium text-gray-800">
-                  {product.name}
-                </td>
-                <td className="p-4 text-gray-600">{product.category}</td>
-                <td className="p-4 text-gray-600">
-                  R$ {product.price.toFixed(2).replace(".", ",")}
-                </td>
-                <td className="p-4 text-gray-600">
-                  {product.stock > 0 ? (
-                    product.stock
-                  ) : (
-                    <Badge text="Sem Estoque" variant="danger" />
-                  )}
-                  {product.stock > 0 && product.stock < 10 && (
-                    <Badge text="Baixo" variant="warning" />
-                  )}
-                </td>
-                <td className="p-4">
-                  <Badge text={product.status} variant="success" />
-                </td>
-                <td className="p-4 text-gray-600 font-bold cursor-pointer">
-                  ...
-                </td>
+        {totalProdutos === 0 ? (
+          <p className="p-4 text-center text-gray-500">Nenhum produto cadastrado ainda.</p>
+        ) : (
+          <table className="w-full table-auto min-w-[600px]">
+            <thead className="border-b bg-gray-50 text-left text-sm text-gray-600">
+              <tr>
+                <th className="p-4 font-medium">Nome do Produto</th>
+                <th className="p-4 font-medium">Categoria</th>
+                <th className="p-4 font-medium">Preço</th>
+                <th className="p-4 font-medium">Estoque</th>
+                <th className="p-4 font-medium">Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id} className="border-b hover:bg-gray-50">
+                  <td className="p-4 font-medium text-gray-800">{product.nome}</td>
+                  <td className="p-4 text-gray-600">{product.categoria || '-'}</td>
+                  {/* 👇 CORREÇÃO APLICADA AQUI 👇 */}
+                  <td className="p-4 text-gray-600">R$ {(parseFloat(product.preco) || 0).toFixed(2).replace('.', ',')}</td>
+                  <td className="p-4 text-gray-600">
+                    {product.quantidade_estoque > 0 ? product.quantidade_estoque : <Badge text="Sem Estoque" variant="danger" />}
+                    {product.quantidade_estoque > 0 && product.quantidade_estoque < 10 && <Badge text="Baixo" variant="warning" />}
+                  </td>
+                  <td className="p-4 text-gray-600 font-bold cursor-pointer">...</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Cartões de Resumo */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <StatCard
-          title="Total de Produtos"
-          value={productsData.length}
-          icon="📦"
-        />
-        <StatCard
-          title="Produtos Ativos"
-          value={productsData.filter((p) => p.status === "Ativo").length}
-          icon="✅"
-        />
-        <StatCard
-          title="Estoque Baixo"
-          value={productsData.filter((p) => p.stock > 0 && p.stock < 10).length}
-          icon="⚠️"
-        />
+        <StatCard title="Total de Produtos" value={totalProdutos} icon="📦" />
+        <StatCard title="Produtos Ativos" value={produtosAtivos} icon="✅" />
+        <StatCard title="Estoque Baixo" value={estoqueBaixo} icon="⚠️" />
       </div>
     </div>
   );
