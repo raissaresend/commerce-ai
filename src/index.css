@@ -1,70 +1,69 @@
 @import "tailwindcss";
+/* src/index.css */
 
-/*:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* 2. Estilos personalizados para o react-calendar */
+
+/* Remove a borda padrão do calendário */
+.react-calendar {
+  border: none;
+  width: 100%;
+  max-width: 400px; /* Limita a largura para não ficar gigante */
+  background: white; /* Garante fundo branco */
+  font-family: inherit; /* Usa a mesma fonte do app */
+  line-height: 1.125em;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Cor de fundo do dia selecionado (ativo) */
+.react-calendar__tile--active {
+  background-color: #3b82f6 !important; /* Azul do Tailwind (blue-500) */
+  color: white !important;
 }
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background-color: #2563eb !important; /* Azul mais escuro (blue-600) */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Cor de fundo do dia de hoje */
+.react-calendar__tile--now {
+  background-color: #eff6ff !important; /* Azul bem claro (blue-50) */
+  color: #1d4ed8; /* Azul escuro (blue-700) para o texto */
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+   background-color: #dbeafe !important; /* Azul mais forte (blue-100) */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Estilo para o pontinho verde (marcador de agendamento) */
+.day-with-appointments {
+   position: relative; /* Necessário para o pseudo-elemento */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* O pontinho verde em si */
+.day-with-appointments::after {
+    content: '';
+    position: absolute;
+    bottom: 5px; /* Posição do ponto */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;  /* Tamanho do ponto */
+    height: 6px; /* Tamanho do ponto */
+    border-radius: 50%;
+    background-color: #10b981; /* Verde do Tailwind (green-500) */
+}
+
+/* Limpa a borda dos botões de navegação do calendário */
+.react-calendar__navigation button {
+    border: none;
+    background: none;
+}
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+    background-color: #f3f4f6 !important; /* Cinza claro (gray-100) */
+}
+
+/* Ajusta o padding dos dias */
+.react-calendar__tile {
+    padding: 0.75em 0.5em;
 }

@@ -5,6 +5,7 @@ const db = require("./db");
 const productRoutes = require("./routes/products");
 const webhookRoutes = require("./routes/webhooks");
 const chatRoutes = require("./routes/chat");
+const appointmentRoutes = require("./routes/appointments");
 
 const app = express();
 const port = 3001;
@@ -16,19 +17,14 @@ app.use("/api/webhooks/calendly", express.raw({ type: "application/json" }));
 // Middleware JSON normal para todas as outras rotas.
 app.use(express.json());
 
-// Rota de teste inicial
+// Rotas
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend está funcionando!" });
 });
-
-// Rotas de Produtos
 app.use("/api/produtos", productRoutes);
-
-// ROTAS DE WEBHOOK
 app.use("/api/webhooks", webhookRoutes);
-
-// Rotas de Chat
 app.use("/api/chat", chatRoutes);
+app.use("/api/agendamentos", appointmentRoutes);
 
 // Inicia o servidor
 app.listen(port, async () => {
