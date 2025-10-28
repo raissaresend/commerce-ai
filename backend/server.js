@@ -6,6 +6,7 @@ const productRoutes = require("./routes/products");
 const webhookRoutes = require("./routes/webhooks");
 const chatRoutes = require("./routes/chat");
 const appointmentRoutes = require("./routes/appointments");
+const dashboardRoutes = require("./routes/dashboard");
 
 const app = express();
 const port = 3001;
@@ -25,6 +26,7 @@ app.use("/api/produtos", productRoutes);
 app.use("/api/webhooks", webhookRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/agendamentos", appointmentRoutes);
+app.use("/api/dashboard-stats", dashboardRoutes);
 
 // Inicia o servidor
 app.listen(port, async () => {
