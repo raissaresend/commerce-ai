@@ -1,9 +1,8 @@
-// src/pages/ProductsListPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import StatCard from '../components/StatCard';
 import Badge from '../components/Badge';
+import { Package, CheckCircle, AlertTriangle, PlusCircle } from 'lucide-react';
 
 export default function ProductsListPage() {
   const [products, setProducts] = useState([]);
@@ -31,9 +30,10 @@ export default function ProductsListPage() {
     fetchProducts();
   }, []);
 
+  // Lógica para calcular estatísticas
   const totalProdutos = products.length;
-  // Ajuste aqui se o status vier do DB ou for derivado
-  const produtosAtivos = products.length; // Exemplo simplificado
+  // Assumindo que todos os produtos listados estão 'ativos'
+  const produtosAtivos = products.length; 
   const estoqueBaixo = products.filter(p => p.quantidade_estoque > 0 && p.quantidade_estoque < 10).length;
 
   if (isLoading) {
@@ -47,14 +47,15 @@ export default function ProductsListPage() {
   return (
     <div>
       {/* Cabeçalho da Página */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-800">Lista de Produtos</h2>
           <p className="text-gray-500">Gerencie seu catálogo de produtos</p>
         </div>
         <Link to="/produtos/novo">
-          <button className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-green-700">
-            + Novo Produto
+          <button className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-green-500 text-white px-4 py-2 rounded-lg shadow-sm hover:from-blue-600 hover:to-green-600 text-sm font-medium">
+            <PlusCircle size={18} />
+            Novo Produto
           </button>
         </Link>
       </div>
@@ -87,7 +88,6 @@ export default function ProductsListPage() {
                 <tr key={product.id} className="border-b hover:bg-gray-50">
                   <td className="p-4 font-medium text-gray-800">{product.nome}</td>
                   <td className="p-4 text-gray-600">{product.categoria || '-'}</td>
-                  {/* 👇 CORREÇÃO APLICADA AQUI 👇 */}
                   <td className="p-4 text-gray-600">R$ {(parseFloat(product.preco) || 0).toFixed(2).replace('.', ',')}</td>
                   <td className="p-4 text-gray-600">
                     {product.quantidade_estoque > 0 ? product.quantidade_estoque : <Badge text="Sem Estoque" variant="danger" />}
@@ -101,11 +101,23 @@ export default function ProductsListPage() {
         )}
       </div>
 
-      {/* Cartões de Resumo */}
+      {/* Cards de Resumo */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <StatCard title="Total de Produtos" value={totalProdutos} icon="📦" />
-        <StatCard title="Produtos Ativos" value={produtosAtivos} icon="✅" />
-        <StatCard title="Estoque Baixo" value={estoqueBaixo} icon="⚠️" />
+        <StatCard 
+          title="Total de Produtos" 
+          value={totalProdutos} 
+          iconComponent={<Package size={24} />} 
+        />
+        <StatCard 
+          title="Produtos Ativos" 
+          value={produtosAtivos} 
+          iconComponent={<CheckCircle size={24} />} 
+        />
+        <StatCard 
+          title="Estoque Baixo" 
+          value={estoqueBaixo} 
+          iconComponent={<AlertTriangle size={24} />} 
+        />
       </div>
     </div>
   );

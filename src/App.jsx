@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import DashboardPage from "./pages/DashboardPage";
@@ -7,6 +6,7 @@ import SchedulePage from "./pages/SchedulePage";
 import WhatsappPage from "./pages/WhatsappPage";
 import LoginPage from "./pages/LoginPage";
 import ProductCreatePage from "./pages/ProductCreatePage";
+import SalesPage from './pages/SalesPage';
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route path="/produtos/novo" element={<ProductCreatePage />} />
           <Route path="/agenda" element={<SchedulePage />} />
           <Route path="/whatsapp" element={<WhatsappPage />} />
+          <Route path="/vendas" element={<SalesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

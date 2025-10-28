@@ -1,6 +1,3 @@
-// src/components/PerformanceItem.jsx
-
-// Props:
 // - label: O nome da métrica (ex: "Vendas")
 // - value: O valor a ser exibido (ex: "R$ 12.450")
 // - percentage: O valor de 0 a 100 para a largura da barra

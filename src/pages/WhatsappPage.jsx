@@ -37,7 +37,7 @@ const initialConversations = [
   },
 ];
 
-// Dados de exemplo para a conversa ativa (no centro) - podem ser removidos ou ajustados
+// Dados de exemplo para a conversa ativa (no centro) 
 const initialMessages = [
   {
     id: 1,
@@ -56,7 +56,7 @@ export default function WhatsappPage() {
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Estado para mostrar que o bot está "pensando"
 
-  // Função ATUALIZADA para enviar mensagem e obter resposta da IA
+  // Função para enviar mensagem e obter resposta da IA
   const handleSendMessage = async (e) => {
     // Marca a função como async
     e.preventDefault();
@@ -73,7 +73,7 @@ export default function WhatsappPage() {
     setNewMessage(""); // Limpa o input
     setIsLoading(true); // Indica que o bot está processando
 
-    // --- LÓGICA ATUALIZADA COM FETCH PARA O BACKEND ---
+    // --- LÓGICA COM FETCH PARA O BACKEND ---
     try {
       console.log("Enviando para backend:", userMessageText);
 
@@ -118,7 +118,7 @@ export default function WhatsappPage() {
     } finally {
       setIsLoading(false); // Terminou de carregar (com sucesso ou erro)
     }
-    // --- FIM DA LÓGICA ATUALIZADA ---
+    // --- FIM DA LÓGICA ---
   };
 
   return (
@@ -131,7 +131,6 @@ export default function WhatsappPage() {
           <h2 className="text-lg font-semibold text-gray-800">
             Atendimento WhatsApp
           </h2>
-          {/* Poderia ter um campo de busca aqui */}
         </div>
         {/* Lista Rolável */}
         <div className="flex-1 overflow-y-auto">
@@ -192,7 +191,6 @@ export default function WhatsappPage() {
               <p className="text-xs text-green-600">Online</p>{" "}
               {/* Status Simulado */}
             </div>
-            {/* Poderia ter ícones de ação aqui (ligar, pesquisar, etc.) */}
           </div>
         ) : (
           <div className="p-4 border-b border-gray-200 flex items-center justify-center text-gray-500">
@@ -217,7 +215,6 @@ export default function WhatsappPage() {
                 }`}
               >
                 {msg.text}
-                {/* Poderia adicionar timestamp aqui */}
               </div>
             </div>
           ))}
@@ -243,10 +240,10 @@ export default function WhatsappPage() {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Digite sua mensagem..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900" // Cor do texto corrigida
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               disabled={isLoading} // Desabilita input enquanto espera resposta
             />
-            {/* Ícone de emoji (opcional) */}
+            {/* Ícone de emoji */}
             {/* <button type="button" className="text-gray-500 hover:text-gray-700">😀</button> */}
             <button
               type="submit"
@@ -258,6 +255,6 @@ export default function WhatsappPage() {
           </form>
         </div>
       </div>
-    </div> // Fim do container principal
+    </div>
   );
 }

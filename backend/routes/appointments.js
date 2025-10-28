@@ -1,5 +1,3 @@
-// backend/routes/appointments.js
-
 const express = require('express');
 const router = express.Router();
 const db = require('../db'); // Importa a conexão com o banco
@@ -7,7 +5,6 @@ const db = require('../db'); // Importa a conexão com o banco
 // Rota GET para buscar todos os agendamentos (ou futuros)
 router.get('/', async (req, res) => {
   try {
-    // 👇 Query SQL CORRIGIDA (removido a.observacoes) 👇
     const query = `
       SELECT
         a.id,
@@ -35,7 +32,5 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Erro interno do servidor ao buscar agendamentos' });
   }
 });
-
-// (Futuramente, podemos adicionar rotas POST, PUT, DELETE para agendamentos manuais)
 
 module.exports = router;

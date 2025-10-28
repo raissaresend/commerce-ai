@@ -1,8 +1,6 @@
-// backend/routes/webhooks.js
-
 const express = require("express");
 const router = express.Router();
-const db = require("../db"); // Importa a conexão com o banco
+const db = require("../db"); 
 
 router.post("/calendly", async (req, res) => {
   // Adiciona 'async' para usar await com o banco
@@ -28,10 +26,9 @@ router.post("/calendly", async (req, res) => {
       const eventDetails = payload.payload;
       const inviteeEmail = eventDetails?.email;
       const inviteeName = eventDetails?.name;
-      // 👇 LINHA CORRIGIDA AQUI 👇
-      const inviteePhone = eventDetails?.scheduled_event?.location?.location; // Ajustado para pegar da location
-      const eventStartTime = eventDetails?.scheduled_event?.start_time; // Data/Hora UTC
-      const serviceName = eventDetails?.scheduled_event?.name; // Nome do tipo de evento
+      const inviteePhone = eventDetails?.scheduled_event?.location?.location;
+      const eventStartTime = eventDetails?.scheduled_event?.start_time; 
+      const serviceName = eventDetails?.scheduled_event?.name; 
 
       console.log(
         `Dados Extraídos - Nome: ${inviteeName}, Email: ${inviteeEmail}, Telefone: ${inviteePhone}, Serviço: ${serviceName}, Horário: ${eventStartTime}`
@@ -117,7 +114,6 @@ router.post("/calendly", async (req, res) => {
         } catch (dbError) {
           console.error("❌ Erro ao inserir agendamento:", dbError);
           // Verificar se o erro é de chave duplicada (tentativa de inserir o mesmo agendamento?)
-          // Poderíamos adicionar uma lógica para UPDATE em vez de INSERT se o agendamento já existir
           res.status(500).send("Erro no banco ao inserir agendamento");
         }
       } else {

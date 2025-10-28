@@ -1,8 +1,6 @@
-// backend/routes/dashboard.js
-
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Importa a conexão com o banco
+const db = require('../db'); 
 
 // Rota GET para buscar as estatísticas do dashboard
 router.get('/', async (req, res) => {
@@ -16,15 +14,15 @@ router.get('/', async (req, res) => {
     const servicosResult = await db.query('SELECT COUNT(*) FROM servicos');
     const totalServicos = parseInt(servicosResult.rows[0].count, 10);
 
-    // 3. Contar Agendamentos Futuros (exemplo: agendamentos de hoje em diante)
+    // 3. Contar Agendamentos Futuros
     const agendamentosResult = await db.query(
       "SELECT COUNT(*) FROM agendamentos WHERE data_agendamento >= current_date"
     );
     const totalAgendamentos = parseInt(agendamentosResult.rows[0].count, 10);
 
-    // 4. (Opcional) Contar Atendimentos WhatsApp (usando tabela de histórico)
+    // 4. Contar Atendimentos WhatsApp (usando tabela de histórico)
     // Por enquanto, vamos retornar um número estático para este, já que não estamos salvando o histórico
-    const totalWhatsapp = 0; // Mude se quiser simular
+    const totalWhatsapp = 0;
 
     // 5. Envia o objeto JSON com todas as estatísticas
     res.json({
@@ -32,7 +30,6 @@ router.get('/', async (req, res) => {
       totalServicos: totalServicos,
       totalAgendamentos: totalAgendamentos,
       totalWhatsapp: totalWhatsapp 
-      // Adicionar mais estatísticas aqui (ex: receita)
     });
 
   } catch (err) {

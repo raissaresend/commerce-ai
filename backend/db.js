@@ -1,6 +1,4 @@
-// backend/db.js - Atualizado para usar variáveis de ambiente
-
-require('dotenv').config(); // Carrega as variáveis do .env
+require('dotenv').config(); 
 const { Pool } = require('pg');
 
 // Configuração da conexão usando variáveis de ambiente
@@ -23,7 +21,7 @@ async function testConnection() {
   } finally {
     if (client) {
       client.release();
-      // console.log('ℹ️ Conexão liberada de volta para o pool.'); // Log opcional
+      
     }
   }
 }
@@ -32,4 +30,5 @@ async function testConnection() {
 module.exports = {
   query: (text, params) => pool.query(text, params),
   testConnection,
+  pool,
 };

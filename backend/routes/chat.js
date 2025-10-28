@@ -1,5 +1,3 @@
-// backend/routes/chat.js - USANDO A NOVA SINTAXE @google/genai
-
 require("dotenv").config();
 //const db = require('../db');
 const express = require("express");
@@ -15,11 +13,11 @@ if (!process.env.GEMINI_API_KEY) {
 const apiKey = process.env.GEMINI_API_KEY;
 console.log("Chave API Carregada:", apiKey ? "Sim" : "NÃO!!!");
 
-// 👇 Inicializa o cliente central como na documentação "Depois"
+// Inicializa o cliente
 const ai = new GoogleGenAI({ apiKey: apiKey });
 
-// Escolhe o modelo - Use o que está disponível para você
-const modelName = "gemini-2.5-flash"; // <<< CONFIRME AQUI ou use "gemini-2.5-flash-latest"
+// Escolhe o modelo 
+const modelName = "gemini-2.5-flash";
 console.log(`Usando modelo Gemini: ${modelName}`);
 
 // Rota POST /api/chat/message
@@ -31,11 +29,12 @@ router.post("/message", async (req, res) => {
   }
 
   console.log(`Mensagem recebida: "${userMessage}"`);
-  //inicio
+
+  //Início
   let dbContext = ''; // Variável para guardar informações do banco
   let isSchedulingQuery = false; // Flag para perguntas sobre agendamento
 
-  // --- Lógica Simples de Detecção e Consulta ao DB (AJUSTADA) ---
+  // --- Lógica Simples de Detecção e Consulta ao DB ---
   const lowerCaseMessage = userMessage.toLowerCase();
   let searchTerm = null;
   const words = lowerCaseMessage.split(' ').filter(word => word.length > 2); // Divide em palavras > 2 letras
@@ -100,13 +99,12 @@ router.post("/message", async (req, res) => {
   // --- Fim da Lógica de Consulta ao DB ---
 
   try {
-    // Define a instrução do sistema (opcional, mas bom)
+    // Define a instrução do sistema
     const systemInstruction = `Você é um atendente virtual de um Pet Shop chamado Commerce.AI. ${dbContext} Responda a pergunta do cliente de forma útil, amigável e concisa. Se ele fizer uma pergunta genérica, pergunte o contexto/específicações. Depois do cliente responder, diga que logo um atendente irá atender. Use o contexto do banco de dados para responder sobre preços e estoque se relevante. Caso não consiga o acesso ao estoque; Evite ser redundante e fazer perguntas que já fez anteriormente. ${isSchedulingQuery ? 'Se o cliente quiser agendar, ofereça o link apenas uma vez: https://calendly.com/raissa-resende-estudante/banho-e-tosa?month=2025-10' : ''}`;
 
     console.log(`Enviando para Gemini (Modelo: ${modelName})...`);
 
-    // 👇 Chama a API usando a sintaxe "Depois" da documentação
-    // A chamada é feita diretamente em ai.models.generateContent
+    //  Chama a API 
     const response = await ai.models.generateContent({
       model: modelName,
       // Passa a mensagem do usuário dentro de 'contents'
@@ -114,12 +112,11 @@ router.post("/message", async (req, res) => {
       // Passa a instrução do sistema e outras configurações em 'config'
       config: {
         systemInstruction: systemInstruction,
-        // temperature: 0.1, // Exemplo de outra config, se necessário
       },
     });
 
-    // Acesso ao texto da resposta também mudou ligeiramente
-    const botText = response.text; // Acessa diretamente .text
+    // Acesso ao texto da resposta 
+    const botText = response.text; 
 
     console.log("Resposta do Gemini:", botText);
     res.json({ reply: botText });

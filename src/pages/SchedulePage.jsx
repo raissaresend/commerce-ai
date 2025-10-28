@@ -1,10 +1,9 @@
-// src/pages/SchedulePage.jsx
-// Versão final com react-calendar, dados dinâmicos da API e remoção do card de resumo.
-
 import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar'; // Importa o componente de calendário
-import 'react-calendar/dist/Calendar.css'; // Importa o CSS padrão do calendário
+import Calendar from 'react-calendar'; 
+import 'react-calendar/dist/Calendar.css'; 
 import AppointmentCard from '../components/AppointmentCard';
+import Badge from '../components/Badge';
+import { Package, CheckCircle, AlertTriangle, PlusCircle } from 'lucide-react';
 
 // --- Funções Auxiliares para Formatar Data/Hora ---
 
@@ -52,7 +51,7 @@ export default function SchedulePage() {
   const [error, setError] = useState(null);
 
   // Link do Calendly
-  const calendlyLink = "https://calendly.com/raissa-resende-estudante/banho-e-tosa?month=2025-10"; // SEU LINK AQUI
+  const calendlyLink = "https://calendly.com/raissa-resende-estudante/banho-e-tosa?month=2025-10"; 
 
   // Busca os agendamentos da API quando a página carrega
   useEffect(() => {
@@ -119,8 +118,10 @@ export default function SchedulePage() {
           <p className="text-gray-500">Gerencie seus agendamentos</p>
         </div>
         <a href={calendlyLink} target="_blank" rel="noopener noreferrer"
-           className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-green-700 text-sm font-medium">
-          + Novo Agendamento
+           className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-green-500 text-white px-4 py-2 rounded-lg shadow-sm hover:from-blue-600 hover:to-green-600 text-sm font-medium"
+           >
+          <PlusCircle size={18} />
+          Novo Agendamento
         </a>
       </div>
 
@@ -179,7 +180,7 @@ export default function SchedulePage() {
                   <AppointmentCard
                     key={appt.id}
                     time={appt.time}
-                    client={appt.client} // Não precisa mais da data aqui
+                    client={appt.client}
                     service={appt.service}
                     duration={appt.duration}
                     status={appt.status}
@@ -188,9 +189,6 @@ export default function SchedulePage() {
               </div>
             )}
           </div>
-          
-          {/* Card de Resumo da Semana foi REMOVIDO conforme solicitado */}
-          
         </div>
       </div>
     </div>

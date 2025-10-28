@@ -1,10 +1,8 @@
-// backend/routes/products.js
-
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// --- Rota GET para buscar todos os produtos (já existente) ---
+// --- Rota GET para buscar todos os produtos ---
 router.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM produtos ORDER BY id ASC");
@@ -18,11 +16,11 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // 1. Extrai os dados do produto do corpo da requisição (enviado pelo front-end)
+  // 1. Extrai os dados do produto do corpo da requisição 
   const { nome, descricao, preco, quantidade_estoque, categoria, sku } =
     req.body;
 
-  // 2. Validação básica (poderíamos adicionar mais validações aqui)
+  // 2. Validação básica
   if (!nome || !preco || quantidade_estoque === undefined) {
     return res
       .status(400)
@@ -31,7 +29,7 @@ router.post("/", async (req, res) => {
 
   try {
     // 3. Monta a query SQL para inserir o novo produto
-    // Usamos $1, $2, etc. para prevenir SQL Injection (muito importante!)
+    // Usa $1, $2, etc. para prevenir SQL Injection
     const insertQuery = `
       INSERT INTO produtos (nome, descricao, preco, quantidade_estoque, categoria, sku)
       VALUES ($1, $2, $3, $4, $5, $6)
@@ -95,7 +93,7 @@ router.put("/:id", async (req, res) => {
     return res.status(400).json({ error: "ID do produto inválido." });
   }
 
-  // 2. Pega os NOVOS dados do corpo da requisição
+  // 2. Pega os novos dados do corpo da requisição
   const { nome, descricao, preco, quantidade_estoque, categoria, sku } =
     req.body;
 
@@ -129,7 +127,7 @@ router.put("/:id", async (req, res) => {
         WHERE id = $7
         RETURNING *; -- Retorna o produto atualizado
       `;
-    // O array de valores deve seguir a ordem $1, $2, ..., $7
+
     const values = [
       nome,
       descricao,
@@ -186,12 +184,9 @@ router.delete("/:id", async (req, res) => {
     }
 
     // 5. Se deletou com sucesso, retorna status 204 No Content
-    // É o padrão para DELETE bem-sucedido, pois não há conteúdo para retornar
     res.status(204).send();
   } catch (err) {
     // 6. Se der erro (ex: erro de banco), loga e envia erro 500
-    // Um erro comum aqui seria tentar deletar um produto que está em 'venda_itens'
-    // (se tivéssemos configurado a restrição para impedir isso, o que não fizemos ainda)
     console.error(`Erro ao deletar produto com ID ${productId}:`, err.stack);
     res
       .status(500)

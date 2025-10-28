@@ -1,4 +1,3 @@
-// src/components/AppointmentCard.jsx
 import Badge from "./Badge";
 
 export default function AppointmentCard({

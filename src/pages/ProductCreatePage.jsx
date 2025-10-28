@@ -1,7 +1,4 @@
-// src/pages/ProductCreatePage.jsx
-
 import { useState } from 'react';
-// 👇 1. Importa useNavigate para redirecionar após salvar
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function ProductCreatePage() {
@@ -14,10 +11,9 @@ export default function ProductCreatePage() {
   const [sku, setSku] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Estado para indicar carregamento
 
-  // 👇 2. Inicializa o hook de navegação
   const navigate = useNavigate();
 
-  // 👇 3. Função ATUALIZADA para lidar com o envio do formulário
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (event) => {
     event.preventDefault(); // Previne o recarregamento da página
     setIsLoading(true); // Indica que o processo começou
@@ -57,7 +53,7 @@ export default function ProductCreatePage() {
       alert('Produto salvo com sucesso!');
 
       // Redireciona o usuário de volta para a lista de produtos
-      navigate('/produtos'); // 👈 Redirecionamento AQUI
+      navigate('/produtos'); 
 
     } catch (error) {
       // Se deu erro no fetch ou na resposta do backend

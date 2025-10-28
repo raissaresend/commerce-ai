@@ -1,7 +1,3 @@
-// src/components/Badge.jsx
-
-// Props:
-// - text: O texto a ser exibido
 // - variant: 'success' (verde), 'warning' (laranja), 'danger' (vermelho)
 
 export default function Badge({ text, variant = "default" }) {

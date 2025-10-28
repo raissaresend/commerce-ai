@@ -1,54 +1,53 @@
 @import "tailwindcss";
-/* src/index.css */
 
-/* 2. Estilos personalizados para o react-calendar */
+/* Estilos personalizados para o react-calendar */
 
 /* Remove a borda padrão do calendário */
 .react-calendar {
   border: none;
   width: 100%;
-  max-width: 400px; /* Limita a largura para não ficar gigante */
-  background: white; /* Garante fundo branco */
-  font-family: inherit; /* Usa a mesma fonte do app */
+  max-width: 400px; 
+  background: white; 
+  font-family: inherit; 
   line-height: 1.125em;
 }
 
 /* Cor de fundo do dia selecionado (ativo) */
 .react-calendar__tile--active {
-  background-color: #3b82f6 !important; /* Azul do Tailwind (blue-500) */
+  background-color: #3b82f6 !important; 
   color: white !important;
 }
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background-color: #2563eb !important; /* Azul mais escuro (blue-600) */
+  background-color: #2563eb !important; 
 }
 
 /* Cor de fundo do dia de hoje */
 .react-calendar__tile--now {
-  background-color: #eff6ff !important; /* Azul bem claro (blue-50) */
-  color: #1d4ed8; /* Azul escuro (blue-700) para o texto */
+  background-color: #eff6ff !important; 
+  color: #1d4ed8;/
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-   background-color: #dbeafe !important; /* Azul mais forte (blue-100) */
+   background-color: #dbeafe !important; 
 }
 
-/* Estilo para o pontinho verde (marcador de agendamento) */
+/* Estilo para o marcador de agendamento (pontinho verde) */
 .day-with-appointments {
    position: relative; /* Necessário para o pseudo-elemento */
 }
 
-/* O pontinho verde em si */
+/* Marcador de agendamento */
 .day-with-appointments::after {
     content: '';
     position: absolute;
-    bottom: 5px; /* Posição do ponto */
+    bottom: 5px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 6px;  /* Tamanho do ponto */
-    height: 6px; /* Tamanho do ponto */
+    width: 6px;  
+    height: 6px; 
     border-radius: 50%;
-    background-color: #10b981; /* Verde do Tailwind (green-500) */
+    background-color: #10b981; 
 }
 
 /* Limpa a borda dos botões de navegação do calendário */
@@ -58,7 +57,7 @@
 }
 .react-calendar__navigation button:hover,
 .react-calendar__navigation button:focus {
-    background-color: #f3f4f6 !important; /* Cinza claro (gray-100) */
+    background-color: #f3f4f6 !important; 
 }
 
 /* Ajusta o padding dos dias */

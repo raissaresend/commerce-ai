@@ -1,6 +1,3 @@
-// src/components/DayCard.jsx
-
-// Props:
 // - dayName: 'Dom', 'Seg', 'Ter', etc.
 // - dayNumber: O número do dia
 // - appointments: Uma lista de agendamentos para aquele dia
