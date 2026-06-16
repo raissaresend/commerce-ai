@@ -17,6 +17,14 @@ Sistema de gestão comercial para pet shops com IA integrada. Permite gerenciar 
 - Registro de vendas
 - Integração com WhatsApp via IA (Gemini)
 
+<img width="1352" height="574" alt="Tela Login" src="https://github.com/user-attachments/assets/334bf284-63b3-4504-8b25-a6429d48cb49" />
+<img width="1352" height="574" alt="Chat" src="https://github.com/user-attachments/assets/165ff707-5d1c-478a-bab2-d74be18f49d2" />
+<img width="1352" height="574" alt="Vendas" src="https://github.com/user-attachments/assets/e21e6ebb-4f27-45a8-8efa-5186bb7a7fe9" />
+<img width="1352" height="574" alt="Agendamento" src="https://github.com/user-attachments/assets/ed117cc0-d907-4e20-8ccc-7148ae9dfddf" />
+<img width="1352" height="574" alt="Produtos" src="https://github.com/user-attachments/assets/8fab2f9f-8c79-4d45-890e-507fc3709b85" />
+<img width="1352" height="574" alt="Dashboard" src="https://github.com/user-attachments/assets/24194851-7ec3-4ac3-a128-2fe161b02ef1" />
+
+
 ## Como rodar localmente
 
 ### Pré-requisitos
