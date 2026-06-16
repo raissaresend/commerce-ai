@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// Rota POST para criar uma nova venda (para 1 produto, simplificado)
+// Rota POST para criar uma nova venda
 router.post('/', async (req, res) => {
   const { clienteId, produtoId, quantidade } = req.body;
 

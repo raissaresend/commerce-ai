@@ -1,8 +1,7 @@
 require("dotenv").config();
-//const db = require('../db');
+const db = require('../db');
 const express = require("express");
 const router = express.Router();
-// 👇 Importa da biblioteca correta
 const { GoogleGenAI } = require("@google/genai");
 
 // Verifica a chave da API

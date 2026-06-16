@@ -1,14 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    // Informa ao Tailwind quais arquivos monitorar para encontrar classes
     content: [
       "./index.html",
-      "./src/**/*.{js,ts,jsx,tsx}", // Inclui todos os arquivos dentro de /src
+      "./src/**/*.{js,ts,jsx,tsx}",
     ],
   
     theme: {
       extend: {
-        // Bloco de cores personalizadas
         colors: {
           'primary': {
             '50': '#eef2ff',

@@ -32,12 +32,12 @@ export default function ProductCreatePage() {
 
     try {
       // Faz a requisição POST para a API do backend
-      const response = await fetch('/api/produtos', { // Usa o proxy configurado no vite.config.js
+      const response = await fetch('/api/produtos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newProduct), // Envia os dados como JSON
+        body: JSON.stringify(newProduct),
       });
 
       // Verifica se a resposta do backend foi OK (status 2xx)
@@ -101,7 +101,7 @@ export default function ProductCreatePage() {
                 <label htmlFor="preco" className="block text-sm font-medium text-gray-700 mb-1">Preço (R$)</label>
                 <input
                   type="number"
-                  step="0.01" // Permite decimais
+                  step="0.01"
                   id="preco"
                   value={preco}
                   onChange={(e) => setPreco(e.target.value)}

@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
     const totalAgendamentos = parseInt(agendamentosResult.rows[0].count, 10);
 
     // 4. Contar Atendimentos WhatsApp (usando tabela de histórico)
-    // Por enquanto, vamos retornar um número estático para este, já que não estamos salvando o histórico
     const totalWhatsapp = 0;
 
     // 5. Envia o objeto JSON com todas as estatísticas

@@ -74,7 +74,7 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Botão do Menu Móvel (Telas Pequenas) */}
+          {/* Botão do Menu Móvel */}
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -92,7 +92,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Menu Móvel Dropdown (Telas Pequenas) */}
+      {/* Menu Móvel Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200">
           <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">

@@ -8,9 +8,8 @@ export default defineConfig({
   })],
   server: {
     proxy: {
-      // Qualquer requisição começando com '/api' será redirecionada
       "/api": {
-        target: "http://localhost:3001", // Para o backend
+        target: "http://localhost:3001",
         changeOrigin: true, 
       },
     },

@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Estilos personalizados para o react-calendar */
-
-/* Remove a borda padrão do calendário */
 .react-calendar {
   border: none;
   width: 100%;
@@ -12,7 +9,6 @@
   line-height: 1.125em;
 }
 
-/* Cor de fundo do dia selecionado (ativo) */
 .react-calendar__tile--active {
   background-color: #3b82f6 !important; 
   color: white !important;
@@ -22,22 +18,18 @@
   background-color: #2563eb !important; 
 }
 
-/* Cor de fundo do dia de hoje */
 .react-calendar__tile--now {
   background-color: #eff6ff !important; 
-  color: #1d4ed8;/
+  color: #1d4ed8;
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
    background-color: #dbeafe !important; 
 }
-
-/* Estilo para o marcador de agendamento (pontinho verde) */
 .day-with-appointments {
-   position: relative; /* Necessário para o pseudo-elemento */
+   position: relative;
 }
 
-/* Marcador de agendamento */
 .day-with-appointments::after {
     content: '';
     position: absolute;
@@ -50,7 +42,6 @@
     background-color: #10b981; 
 }
 
-/* Limpa a borda dos botões de navegação do calendário */
 .react-calendar__navigation button {
     border: none;
     background: none;
@@ -60,7 +51,6 @@
     background-color: #f3f4f6 !important; 
 }
 
-/* Ajusta o padding dos dias */
 .react-calendar__tile {
     padding: 0.75em 0.5em;
 }

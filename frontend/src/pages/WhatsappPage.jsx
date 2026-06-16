@@ -1,4 +1,3 @@
-// src/pages/WhatsappPage.jsx
 import React, { useState } from "react";
 
 // Dados de exemplo para a lista de conversas (à esquerda)
@@ -44,7 +43,6 @@ const initialMessages = [
     sender: "bot",
     text: "Olá! Bem-vindo ao Pet Shop XYZ. Como posso ajudar?",
   },
-  // Remova outras mensagens de exemplo se quiser começar com uma conversa limpa
 ];
 
 export default function WhatsappPage() {
@@ -233,8 +231,8 @@ export default function WhatsappPage() {
             onSubmit={handleSendMessage}
             className="flex space-x-3 items-center"
           >
-            {/* Ícone de anexo (opcional) */}
-            {/* <button type="button" className="text-gray-500 hover:text-gray-700">📎</button> */}
+            {/* Ícone de anexo*/}
+            <button type="button" className="text-gray-500 hover:text-gray-700">📎</button>
             <input
               type="text"
               value={newMessage}
@@ -244,7 +242,7 @@ export default function WhatsappPage() {
               disabled={isLoading} // Desabilita input enquanto espera resposta
             />
             {/* Ícone de emoji */}
-            {/* <button type="button" className="text-gray-500 hover:text-gray-700">😀</button> */}
+            <button type="button" className="text-gray-500 hover:text-gray-700">😀</button>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"

@@ -97,7 +97,7 @@ router.put("/:id", async (req, res) => {
   const { nome, descricao, preco, quantidade_estoque, categoria, sku } =
     req.body;
 
-  // 3. Validação básica (garantir que pelo menos algo foi enviado para atualizar)
+  // 3. Validação básica: Se nenhum campo para atualizar foi fornecido, retorna erro
   if (
     !nome &&
     !descricao &&
@@ -113,7 +113,7 @@ router.put("/:id", async (req, res) => {
 
   try {
     // 4. Monta a query SQL UPDATE
-    // Usamos COALESCE($X, coluna_existente) para atualizar apenas os campos
+    // COALESCE($X, coluna_existente) para atualizar apenas os campos
     // que foram enviados na requisição. Se um campo não veio, ele mantém o valor antigo.
     const updateQuery = `
         UPDATE produtos

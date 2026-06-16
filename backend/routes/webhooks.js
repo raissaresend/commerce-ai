@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require("../db"); 
 
 router.post("/calendly", async (req, res) => {
-  // Adiciona 'async' para usar await com o banco
   console.log("=== Webhook do Calendly Recebido ===");
 
   try {
@@ -18,11 +17,11 @@ router.post("/calendly", async (req, res) => {
 
     console.log("Payload (JSON):", JSON.stringify(payload, null, 2)); // Log para depuração
 
-    // 2. Verifique se é o evento que nos interessa ('invitee.created')
+    // 2. Verifica se é o evento que interessa ('invitee.created')
     if (payload.event === "invitee.created") {
       console.log("Evento: Agendamento Criado. Processando...");
 
-      // 3. Extraia os dados relevantes do payload
+      // 3. Extrai os dados relevantes do payload
       const eventDetails = payload.payload;
       const inviteeEmail = eventDetails?.email;
       const inviteeName = eventDetails?.name;
